@@ -1,17 +1,30 @@
 package com.bigfat.lmusicplayer;
 
-import android.support.v7.app.ActionBarActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initTransition();
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+    }
+
+    private void initTransition() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Explode().setDuration(1000));
+            getWindow().setExitTransition(null);
+        }
     }
 
     @Override
