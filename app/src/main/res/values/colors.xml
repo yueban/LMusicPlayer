@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="control_bar_title">@android:color/black</color>
+    <color name="control_bar_subtitle">@color/gray</color>
+
+    <color name="gray">#e7e7e7</color>
+    <color name="base_black">@android:color/black</color>
+</resources>

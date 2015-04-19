@@ -9,6 +9,7 @@ import android.os.IBinder;
 import java.io.IOException;
 
 /**
+ * 音频播控服务
  * Created by yueban on 15/4/8.
  */
 public class AudioService extends Service {

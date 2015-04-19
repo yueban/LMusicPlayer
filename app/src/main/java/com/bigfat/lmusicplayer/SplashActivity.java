@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
-import android.transition.Explode;
+import android.transition.ChangeBounds;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.bigfat.lmusicplayer.common.BaseActivity;
 
-public class SplashActivity extends ActionBarActivity {
+
+public class SplashActivity extends BaseActivity {
 
     private ImageView imgLogo;
 
@@ -43,7 +44,7 @@ public class SplashActivity extends ActionBarActivity {
     private void initTransition() {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setExitTransition(new Explode().setDuration(1000));
+            getWindow().setExitTransition(new ChangeBounds().setDuration(1000));
         }
     }
 }
