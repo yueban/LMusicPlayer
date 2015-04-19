@@ -1,8 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -11,22 +11,17 @@
         android:background="@android:color/black">
 
         <ImageView
+            android:id="@+id/img_main_logo"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_launcher"
-            android:tint="@android:color/white"
-            android:transitionName="@string/transition_name_logo" />
+            android:tint="@android:color/white" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_main"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <include
-        layout="@layout/include_control_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/abc_action_bar_default_height_material"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

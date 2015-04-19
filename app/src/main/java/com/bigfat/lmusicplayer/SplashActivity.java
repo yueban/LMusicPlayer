@@ -1,15 +1,13 @@
 package com.bigfat.lmusicplayer;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.ChangeBounds;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
+import com.kale.activityoptions.ActivityCompatICS;
+import com.kale.activityoptions.ActivityOptionsCompatICS;
 
 
 public class SplashActivity extends BaseActivity {
@@ -18,33 +16,27 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initTransition();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         initView();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                if (Build.VERSION.SDK_INT >= 21) {
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, imgLogo, imgLogo.getTransitionName()).toBundle();
-                    startActivity(intent, bundle);
-                } else {
-                    startActivity(intent);
-                }
-                finish();
-            }
-        }, 2000);
+        splash();
     }
 
     private void initView() {
         imgLogo = (ImageView) findViewById(R.id.img_splash_logo);
     }
 
-    private void initTransition() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setExitTransition(new ChangeBounds().setDuration(1000));
-        }
+    private void splash() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                ActivityOptionsCompatICS options = ActivityOptionsCompatICS.makeSceneTransitionAnimation(
+                        SplashActivity.this, imgLogo, R.id.img_main_logo);
+                ActivityCompatICS.startActivity(SplashActivity.this, intent, options.toBundle());
+                finish();
+            }
+        }, 2000);
     }
 }

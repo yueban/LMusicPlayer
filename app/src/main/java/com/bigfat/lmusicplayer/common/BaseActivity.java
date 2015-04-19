@@ -1,7 +1,6 @@
 package com.bigfat.lmusicplayer.common;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 
 /**
@@ -10,8 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 public class BaseActivity extends ActionBarActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ActivityCollector.add(this);
     }
 

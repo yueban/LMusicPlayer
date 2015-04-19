@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:tint="@android:color/white"
-        android:transitionName="@string/transition_name_logo"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:tint="@android:color/white" />
 </RelativeLayout>

@@ -3,93 +3,85 @@ package com.bigfat.lmusicplayer;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.transition.Explode;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
-import com.bigfat.lmusicplayer.model.Audio;
+import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.service.AudioService;
-import com.bigfat.lmusicplayer.util.AudioUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.kale.activityoptions.transition.TransitionCompat;
 
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private AudioService.AudioBinder binder;
-    private List<Audio> data;
-    private ListView lvMain;
+    //控件
+    private ViewPager vpMain;
+    //Service
+    public static AudioService.AudioBinder binder;
+    private ServiceConnection sc = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i(TAG, "onServiceConnected");
+            binder = (AudioService.AudioBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.i(TAG, "onServiceDisconnected");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initTransition();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initService();
-        initData();
         initView();
+        initViewPager();
         initEvent();
-    }
 
-    private void initTransition() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Explode().setDuration(1000));
-            getWindow().setExitTransition(null);
-        }
+        TransitionCompat.startTransition(this, R.layout.activity_main);
     }
 
     private void initService() {
         Intent intent = new Intent(this, AudioService.class);
-        bindService(intent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.i(TAG, "onServiceConnected");
-                binder = (AudioService.AudioBinder) service;
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        }, BIND_AUTO_CREATE);
-    }
-
-    private void initData() {
-        data = AudioUtil.getAudioData(this);
+        bindService(intent, sc, BIND_AUTO_CREATE);
     }
 
     private void initView() {
-        lvMain = (ListView) findViewById(R.id.lv_main);
+        vpMain = (ViewPager) findViewById(R.id.vp_main);
+    }
 
-        List<String> data_temp = new ArrayList<>();
-        for (Audio audio : data) {
-            data_temp.add(audio.getTitle());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.activity_list_item, android.R.id.text1, data_temp);
-        lvMain.setAdapter(adapter);
+    private void initViewPager() {
+        vpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return AudioListFragment.newInstance(AudioListFragment.AudioListType.All, "");
+            }
+
+            @Override
+            public int getCount() {
+                return 1;
+            }
+        });
     }
 
     private void initEvent() {
-        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                binder.playAudio(data.get(position).getData());
-            }
-        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(sc);
+        super.onDestroy();
     }
 
     @Override
