@@ -37,6 +37,7 @@ public class AudioService extends Service {
     }
 
     public class AudioBinder extends Binder {
+        private boolean isPlaying;
 
         public void playAudio(String url) {
             try {
@@ -51,5 +52,18 @@ public class AudioService extends Service {
             }
         }
 
+        public void startOrPause() {
+            if (isPlaying) {
+                mediaPlayer.pause();
+                isPlaying = false;
+            } else {
+                mediaPlayer.start();
+                isPlaying = true;
+            }
+        }
+
+        public boolean isPlaying() {
+            return isPlaying;
+        }
     }
 }

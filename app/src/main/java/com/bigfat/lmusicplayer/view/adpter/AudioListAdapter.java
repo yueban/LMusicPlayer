@@ -1,6 +1,7 @@
 package com.bigfat.lmusicplayer.view.adpter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bigfat.lmusicplayer.R;
 import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.model.Audio;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class AudioListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_audio_list, parent, false);
@@ -58,13 +60,11 @@ public class AudioListAdapter extends BaseAdapter {
         }
 
         Audio audio = getItem(position);
-//        Log.i(TAG, "artist--->" + audio.getArtist());
-//        Log.i(TAG, "artist_id--->" + audio.getArtist_id());
-//        Log.i(TAG, "artist_key--->" + audio.getArtist_key());
-//        Log.i(TAG, "album--->" + audio.getAlbum());
-//        Log.i(TAG, "album_id--->" + audio.getAlbum_id());
-//        Log.i(TAG, "album_key--->" + audio.getAlbum_key());
-        holder.cover.setImageResource(R.mipmap.ic_launcher);
+        String img_url = audio.getAlbums_art();
+        if (!TextUtils.isEmpty(img_url)) {
+            img_url = "file://" + img_url;
+        }
+        ImageLoader.getInstance().displayImage(img_url, holder.cover);
         holder.title.setText(audio.getTitle());
         holder.subTitle.setText(audio.getArtist());
         return convertView;

@@ -57,9 +57,8 @@ public class AudioListFragment extends BaseFragment {
     }
 
     private void initListView() {
-        data = AudioUtil.getAudioData(getActivity(),
-                (AudioListType) getArguments().getSerializable("type"),
-                getArguments().getString("key"));
+        Bundle b = getArguments();
+        data = AudioUtil.getAudioData((AudioListType) b.getSerializable("type"), b.getString("key"));
         adapter = new AudioListAdapter(getActivity(), data);
         lvAudio.setAdapter(adapter);
     }

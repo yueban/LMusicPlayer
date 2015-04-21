@@ -3,28 +3,42 @@ package com.bigfat.lmusicplayer;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
+import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.service.AudioService;
+import com.bigfat.lmusicplayer.task.AudioUpdateTask;
+import com.bigfat.lmusicplayer.util.SPUtil;
+import com.bigfat.lmusicplayer.view.widget.SlidingTabLayout;
 import com.kale.activityoptions.transition.TransitionCompat;
 
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    //控件
-    private ViewPager vpMain;
     //Service
     public static AudioService.AudioBinder binder;
+    //控件
+    private DrawerLayout dlMain;
+    private SlidingTabLayout stlMain;
+    private ViewPager vpMain;
+    //音频Service连接对象
     private ServiceConnection sc = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -45,8 +59,21 @@ public class MainActivity extends BaseActivity {
 
         initService();
         initView();
+        initToolbar();
         initViewPager();
         initEvent();
+
+        //第一次启动执行
+        if (SPUtil.getBoolean(Const.SP_IS_FIRST_START, true)) {
+            new AudioUpdateTask(this) {
+                @Override
+                protected void doInUIThread() {
+                    initViewPager();
+                    //设置：不再是第一次启动
+                    SPUtil.putBoolean(Const.SP_IS_FIRST_START, false);
+                }
+            }.execute();
+        }
 
         TransitionCompat.startTransition(this, R.layout.activity_main);
     }
@@ -57,7 +84,18 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+        dlMain = (DrawerLayout) findViewById(R.id.dl_main);
+        stlMain = (SlidingTabLayout) findViewById(R.id.stl_main);
         vpMain = (ViewPager) findViewById(R.id.vp_main);
+    }
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, dlMain, tbTop, R.string.drawer_open,
+                R.string.drawer_close);
+        mDrawerToggle.syncState();
+        dlMain.setDrawerListener(mDrawerToggle);
     }
 
     private void initViewPager() {
@@ -69,9 +107,28 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return 1;
+                return 2;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "所有";
             }
         });
+
+        stlMain.setViewPager(vpMain);
+        stlMain.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return Color.WHITE;
+            }
+
+            @Override
+            public int getDividerColor(int position) {
+                return Color.TRANSPARENT;
+            }
+        });
+        stlMain.setBackgroundColor(Color.BLUE);
     }
 
     private void initEvent() {
@@ -99,5 +156,28 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onPlayButtonClick(final View view) {
+        Drawable drawable = ((ImageView) view).getDrawable();
+        if (drawable instanceof Animatable) {
+            if(binder.isPlaying()){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ImageView) view).setImageResource(R.drawable.animated_stop);
+                    }
+                },600);
+            }else{
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ImageView) view).setImageResource(R.drawable.animated_play);
+                    }
+                },600);
+            }
+            ((Animatable) drawable).start();
+            binder.startOrPause();
+        }
     }
 }

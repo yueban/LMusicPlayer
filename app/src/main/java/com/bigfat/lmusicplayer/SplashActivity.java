@@ -1,13 +1,10 @@
 package com.bigfat.lmusicplayer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
-import com.kale.activityoptions.ActivityCompatICS;
-import com.kale.activityoptions.ActivityOptionsCompatICS;
 
 
 public class SplashActivity extends BaseActivity {
@@ -31,12 +28,12 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                ActivityOptionsCompatICS options = ActivityOptionsCompatICS.makeSceneTransitionAnimation(
-                        SplashActivity.this, imgLogo, R.id.img_main_logo);
-                ActivityCompatICS.startActivity(SplashActivity.this, intent, options.toBundle());
-                finish();
+//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+//                ActivityOptionsCompatICS options = ActivityOptionsCompatICS.makeSceneTransitionAnimation(
+//                        SplashActivity.this, imgLogo, R.id.img_main_logo);
+//                ActivityCompatICS.startActivity(SplashActivity.this, intent, options.toBundle());
+//                finish();
             }
-        }, 2000);
+        }, 1000);
     }
 }

@@ -1,30 +1,38 @@
 package com.bigfat.lmusicplayer.model;
 
+import android.provider.MediaStore;
+
+import com.litesuits.orm.db.annotation.Column;
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+
+import java.io.Serializable;
+
 /**
  * 音频
  * Created by yueban on 15/4/19.
  */
-public class Audio {
+@Table("Audio")
+public class Audio implements Serializable {
+    @PrimaryKey(PrimaryKey.AssignType.BY_MYSELF)
+    @Column(MediaStore.Audio.Media._ID)
     private String _id;
+    @Column(MediaStore.Audio.Media.TITLE)
     private String title;
+    @Column(MediaStore.Audio.Media.DATA)
     private String data;
+    @Column(MediaStore.Audio.Media.ARTIST)
     private String artist;
+    @Column(MediaStore.Audio.Media.ARTIST_ID)
     private String artist_id;
-    private String artist_key;
+    @Column(MediaStore.Audio.Media.ALBUM)
     private String album;
+    @Column(MediaStore.Audio.Media.ALBUM_ID)
     private String album_id;
-    private String album_key;
+    @Column(MediaStore.Audio.Albums.ALBUM_ART)
+    private String albums_art;
 
-    public Audio(String _id, String title, String data, String artist, String artist_id, String artist_key, String album, String album_id, String album_key) {
-        this._id = _id;
-        this.title = title;
-        this.data = data;
-        this.artist = artist;
-        this.artist_id = artist_id;
-        this.artist_key = artist_key;
-        this.album = album;
-        this.album_id = album_id;
-        this.album_key = album_key;
+    public Audio() {
     }
 
     public String get_id() {
@@ -67,14 +75,6 @@ public class Audio {
         this.artist_id = artist_id;
     }
 
-    public String getArtist_key() {
-        return artist_key;
-    }
-
-    public void setArtist_key(String artist_key) {
-        this.artist_key = artist_key;
-    }
-
     public String getAlbum() {
         return album;
     }
@@ -91,12 +91,12 @@ public class Audio {
         this.album_id = album_id;
     }
 
-    public String getAlbum_key() {
-        return album_key;
+    public String getAlbums_art() {
+        return albums_art;
     }
 
-    public void setAlbum_key(String album_key) {
-        this.album_key = album_key;
+    public void setAlbums_art(String albums_art) {
+        this.albums_art = albums_art;
     }
 
     @Override
@@ -107,10 +107,9 @@ public class Audio {
                 ", data='" + data + '\'' +
                 ", artist='" + artist + '\'' +
                 ", artist_id='" + artist_id + '\'' +
-                ", artist_key='" + artist_key + '\'' +
                 ", album='" + album + '\'' +
                 ", album_id='" + album_id + '\'' +
-                ", album_key='" + album_key + '\'' +
+                ", albums_art='" + albums_art + '\'' +
                 '}';
     }
 }
