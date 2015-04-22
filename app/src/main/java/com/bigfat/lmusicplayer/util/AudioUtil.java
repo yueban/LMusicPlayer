@@ -52,4 +52,8 @@ public class AudioUtil {
         }
         return list;
     }
+
+    public static List<Audio> getAlbumData() {
+        return DBUtil.query(QueryBuilder.create(Audio.class).distinct(true).columns(new String[]{MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ALBUM_ID, MediaStore.Audio.Albums.ALBUM_ART}));
+    }
 }

@@ -15,8 +15,8 @@ public class Utils {
      * @param bitmap 获取的Bitmap
      * @return Bitmap对象中颜色最多的值
      */
-    private int getMostColorFromBitmap(Bitmap bitmap) {
-        int flag = 10;
+    public static int getMostColorFromBitmap(Bitmap bitmap) {
+        int flag = 5;
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         int widthPeriod = width / flag + 1;

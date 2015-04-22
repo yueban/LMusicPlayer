@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="288dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_item_album_cover"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/ll_item_album_text_bg"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_small">
+
+        <TextView
+            android:id="@+id/tv_item_album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/text_title"
+            tools:text="title" />
+
+        <TextView
+            android:id="@+id/tv_item_album_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/text_subtitle"
+            tools:text="subtitle" />
+    </LinearLayout>
+</LinearLayout>

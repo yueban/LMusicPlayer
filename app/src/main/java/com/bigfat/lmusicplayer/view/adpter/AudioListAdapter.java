@@ -20,7 +20,7 @@ import java.util.List;
  * Created by yueban on 15/4/19.
  */
 public class AudioListAdapter extends BaseAdapter {
-    private static final String TAG = AudioListFragment.class.getSimpleName();
+    private static final String TAG = AudioListAdapter.class.getSimpleName();
 
     private Context context;
     private List<Audio> data;

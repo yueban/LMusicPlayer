@@ -22,12 +22,16 @@ import android.widget.ImageView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
+import com.bigfat.lmusicplayer.fragment.AlbumFragment;
 import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.service.AudioService;
 import com.bigfat.lmusicplayer.task.AudioUpdateTask;
 import com.bigfat.lmusicplayer.util.SPUtil;
 import com.bigfat.lmusicplayer.view.widget.SlidingTabLayout;
 import com.kale.activityoptions.transition.TransitionCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity {
@@ -99,20 +103,23 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViewPager() {
+        final List<Fragment> fragments = new ArrayList<>();
+        fragments.add(AudioListFragment.newInstance(AudioListFragment.AudioListType.All, null));
+        fragments.add(AlbumFragment.newInstance());
         vpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return AudioListFragment.newInstance(AudioListFragment.AudioListType.All, "");
+                return fragments.get(position);
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return fragments.size();
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "所有";
+                return new String[]{"所有", "专辑"}[position];
             }
         });
 
@@ -161,20 +168,20 @@ public class MainActivity extends BaseActivity {
     public void onPlayButtonClick(final View view) {
         Drawable drawable = ((ImageView) view).getDrawable();
         if (drawable instanceof Animatable) {
-            if(binder.isPlaying()){
+            if (binder.isPlaying()) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         ((ImageView) view).setImageResource(R.drawable.animated_stop);
                     }
-                },600);
-            }else{
+                }, 600);
+            } else {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         ((ImageView) view).setImageResource(R.drawable.animated_play);
                     }
-                },600);
+                }, 600);
             }
             ((Animatable) drawable).start();
             binder.startOrPause();
