@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigfat.lmusicplayer.R;
-import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -60,7 +59,7 @@ public class AudioListAdapter extends BaseAdapter {
         }
 
         Audio audio = getItem(position);
-        String img_url = audio.getAlbums_art();
+        String img_url = audio.getAlbum_art();
         if (!TextUtils.isEmpty(img_url)) {
             img_url = "file://" + img_url;
         }

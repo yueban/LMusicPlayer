@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.bigfat.lmusicplayer.DetailActivity;
 import com.bigfat.lmusicplayer.R;
 import com.bigfat.lmusicplayer.common.BaseFragment;
 import com.bigfat.lmusicplayer.model.Audio;
@@ -51,5 +53,12 @@ public class AlbumFragment extends BaseFragment {
         data = AudioUtil.getAlbumData();
         adapter = new AlbumAdapter(getActivity(), data);
         gvAlbum.setAdapter(adapter);
+        gvAlbum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Audio audio = adapter.getItem(position);
+                DetailActivity.actionStart(getActivity(), AudioListFragment.AudioListType.ALBUM, audio.getAlbum_id(), audio);
+            }
+        });
     }
 }

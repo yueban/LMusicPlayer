@@ -89,7 +89,7 @@ public abstract class AudioUpdateTask extends AsyncTask<String, Integer, String>
             Cursor cursor_album = contentResolver.query(ALBUMS_URI, null, MediaStore.Audio.Albums._ID + "=?", new String[]{audio.getAlbum_id()}, null);
             if (cursor_album.getCount() > 0) {
                 cursor_album.moveToFirst();
-                audio.setAlbums_art(cursor_album.getString(cursor_album.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)));
+                audio.setAlbum_art(cursor_album.getString(cursor_album.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)));
             }
             cursor_album.close();
 

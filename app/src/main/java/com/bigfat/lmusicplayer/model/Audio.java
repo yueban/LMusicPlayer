@@ -30,7 +30,7 @@ public class Audio implements Serializable {
     @Column(MediaStore.Audio.Media.ALBUM_ID)
     private String album_id;
     @Column(MediaStore.Audio.Albums.ALBUM_ART)
-    private String albums_art;
+    private String album_art;
 
     public Audio() {
     }
@@ -91,12 +91,12 @@ public class Audio implements Serializable {
         this.album_id = album_id;
     }
 
-    public String getAlbums_art() {
-        return albums_art;
+    public String getAlbum_art() {
+        return album_art;
     }
 
-    public void setAlbums_art(String albums_art) {
-        this.albums_art = albums_art;
+    public void setAlbum_art(String album_art) {
+        this.album_art = album_art;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class Audio implements Serializable {
                 ", artist_id='" + artist_id + '\'' +
                 ", album='" + album + '\'' +
                 ", album_id='" + album_id + '\'' +
-                ", albums_art='" + albums_art + '\'' +
+                ", album_art='" + album_art + '\'' +
                 '}';
     }
 }

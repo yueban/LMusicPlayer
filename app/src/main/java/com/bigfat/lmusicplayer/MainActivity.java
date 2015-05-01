@@ -4,21 +4,18 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
@@ -27,6 +24,7 @@ import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.service.AudioService;
 import com.bigfat.lmusicplayer.task.AudioUpdateTask;
 import com.bigfat.lmusicplayer.util.SPUtil;
+import com.bigfat.lmusicplayer.util.ToastUtil;
 import com.bigfat.lmusicplayer.view.widget.SlidingTabLayout;
 import com.kale.activityoptions.transition.TransitionCompat;
 
@@ -39,6 +37,7 @@ public class MainActivity extends BaseActivity {
     //Service
     public static AudioService.AudioBinder binder;
     //控件
+    private Toolbar tbTop;
     private DrawerLayout dlMain;
     private SlidingTabLayout stlMain;
     private ViewPager vpMain;
@@ -62,7 +61,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         initService();
-        initView();
+        bindView();
         initToolbar();
         initViewPager();
         initEvent();
@@ -87,15 +86,15 @@ public class MainActivity extends BaseActivity {
         bindService(intent, sc, BIND_AUTO_CREATE);
     }
 
-    private void initView() {
+    private void bindView() {
+        tbTop = (Toolbar) findViewById(R.id.tb_top);
         dlMain = (DrawerLayout) findViewById(R.id.dl_main);
         stlMain = (SlidingTabLayout) findViewById(R.id.stl_main);
         vpMain = (ViewPager) findViewById(R.id.vp_main);
     }
 
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
+    private void initToolbar() {
+        setSupportActionBar(tbTop);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, dlMain, tbTop, R.string.drawer_open,
                 R.string.drawer_close);
         mDrawerToggle.syncState();
@@ -104,7 +103,7 @@ public class MainActivity extends BaseActivity {
 
     private void initViewPager() {
         final List<Fragment> fragments = new ArrayList<>();
-        fragments.add(AudioListFragment.newInstance(AudioListFragment.AudioListType.All, null));
+        fragments.add(AudioListFragment.newInstance(AudioListFragment.AudioListType.All, null, null));
         fragments.add(AlbumFragment.newInstance());
         vpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -166,25 +165,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onPlayButtonClick(final View view) {
-        Drawable drawable = ((ImageView) view).getDrawable();
-        if (drawable instanceof Animatable) {
-            if (binder.isPlaying()) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((ImageView) view).setImageResource(R.drawable.animated_stop);
-                    }
-                }, 600);
-            } else {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((ImageView) view).setImageResource(R.drawable.animated_play);
-                    }
-                }, 600);
-            }
-            ((Animatable) drawable).start();
-            binder.startOrPause();
-        }
+        ToastUtil.show("这个还没做");
     }
 }

@@ -25,7 +25,7 @@
             android:layout_marginBottom="@dimen/margin_small"
             android:maxLines="1"
             android:singleLine="true"
-            android:textSize="@dimen/text_title"
+            android:textSize="@dimen/abc_text_size_title_material_toolbar"
             tools:text="title" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:singleLine="true"
-            android:textSize="@dimen/text_subtitle"
+            android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
             tools:text="subtitle" />
 
     </LinearLayout>

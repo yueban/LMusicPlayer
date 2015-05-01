@@ -22,7 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile project(':lib_ActivityOptionsICS')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-    compile 'com.telly:mrvector:0.2.0'
+    compile files('src/libs/ActivityOptionsICS.jar')
+    compile files('src/libs/liteorm-debug.jar')
 }
