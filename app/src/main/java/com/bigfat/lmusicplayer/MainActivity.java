@@ -3,7 +3,6 @@ package com.bigfat.lmusicplayer;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.fragment.AlbumFragment;
@@ -25,8 +25,6 @@ import com.bigfat.lmusicplayer.service.AudioService;
 import com.bigfat.lmusicplayer.task.AudioUpdateTask;
 import com.bigfat.lmusicplayer.util.SPUtil;
 import com.bigfat.lmusicplayer.util.ToastUtil;
-import com.bigfat.lmusicplayer.view.widget.SlidingTabLayout;
-import com.kale.activityoptions.transition.TransitionCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +37,7 @@ public class MainActivity extends BaseActivity {
     //控件
     private Toolbar tbTop;
     private DrawerLayout dlMain;
-    private SlidingTabLayout stlMain;
+    private PagerSlidingTabStrip pstsMain;
     private ViewPager vpMain;
     //音频Service连接对象
     private ServiceConnection sc = new ServiceConnection() {
@@ -77,8 +75,6 @@ public class MainActivity extends BaseActivity {
                 }
             }.execute();
         }
-
-        TransitionCompat.startTransition(this, R.layout.activity_main);
     }
 
     private void initService() {
@@ -89,7 +85,7 @@ public class MainActivity extends BaseActivity {
     private void bindView() {
         tbTop = (Toolbar) findViewById(R.id.tb_top);
         dlMain = (DrawerLayout) findViewById(R.id.dl_main);
-        stlMain = (SlidingTabLayout) findViewById(R.id.stl_main);
+        pstsMain = (PagerSlidingTabStrip) findViewById(R.id.psts_main);
         vpMain = (ViewPager) findViewById(R.id.vp_main);
     }
 
@@ -122,19 +118,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        stlMain.setViewPager(vpMain);
-        stlMain.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return Color.WHITE;
-            }
-
-            @Override
-            public int getDividerColor(int position) {
-                return Color.TRANSPARENT;
-            }
-        });
-        stlMain.setBackgroundColor(Color.BLUE);
+        pstsMain.setViewPager(vpMain);
     }
 
     private void initEvent() {

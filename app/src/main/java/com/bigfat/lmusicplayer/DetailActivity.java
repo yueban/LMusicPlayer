@@ -11,7 +11,7 @@ import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.model.Audio;
 
 /**
- * 专辑/歌手详情页
+ * 专辑/艺术家详情页
  * Created by yueban on 15/4/23.
  */
 public class DetailActivity extends BaseActivity {
@@ -53,8 +53,6 @@ public class DetailActivity extends BaseActivity {
 
         AudioListFragment audioListFragment = AudioListFragment.newInstance(type, key, audio);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_detail_container, audioListFragment, AudioListFragment.TAG).commit();
-
-
     }
 
     private void initToolbar() {
