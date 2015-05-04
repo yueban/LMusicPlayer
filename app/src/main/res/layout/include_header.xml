@@ -10,4 +10,10 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img_header_bg_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary" />
 </FrameLayout>

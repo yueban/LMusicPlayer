@@ -4,19 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.bigfat.lmusicplayer.DetailActivity;
 import com.bigfat.lmusicplayer.R;
 import com.bigfat.lmusicplayer.common.BaseFragment;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.bigfat.lmusicplayer.util.AudioUtil;
-import com.bigfat.lmusicplayer.view.adpter.AlbumAdapter;
+import com.bigfat.lmusicplayer.view.adpter.AlbumListAdapter;
 
 import java.util.List;
 
 /**
+ * 专辑界面
  * Created by yueban on 15/4/22.
  */
 public class AlbumFragment extends BaseFragment {
@@ -24,7 +23,7 @@ public class AlbumFragment extends BaseFragment {
 
     //控件
     private GridView gvAlbum;
-    private AlbumAdapter adapter;
+    private AlbumListAdapter adapter;
     private List<Audio> data;
 
     public static AlbumFragment newInstance() {
@@ -42,23 +41,17 @@ public class AlbumFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         initView();
-        initGridView();
+        initAlbumView();
     }
 
     private void initView() {
         gvAlbum = (GridView) view.findViewById(R.id.gv_frag_album);
     }
 
-    private void initGridView() {
+    private void initAlbumView() {
         data = AudioUtil.getAlbumData();
-        adapter = new AlbumAdapter(getActivity(), data);
+        adapter = new AlbumListAdapter(getActivity(), data);
         gvAlbum.setAdapter(adapter);
-        gvAlbum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Audio audio = adapter.getItem(position);
-                DetailActivity.actionStart(getActivity(), AudioListFragment.AudioListType.ALBUM, audio.getAlbum_id(), audio);
-            }
-        });
+        gvAlbum.setOnItemClickListener(adapter);
     }
 }

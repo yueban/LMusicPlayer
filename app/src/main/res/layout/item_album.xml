@@ -29,6 +29,7 @@
             android:layout_marginTop="@dimen/margin_small"
             android:maxLines="1"
             android:singleLine="true"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/abc_text_size_title_material_toolbar"
             tools:text="title" />
 
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:singleLine="true"
+            android:textColor="@color/secondary_text"
             android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
             tools:text="subtitle" />
     </LinearLayout>

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fl_detail_container"
+    <ListView
+        android:id="@+id/lv_detail_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <include layout="@layout/include_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_detail_title"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:padding="@dimen/padding_medium"
+        android:singleLine="true"
+        android:textSize="@dimen/float_title_size_large"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:text="Toolbar Title" />
 </RelativeLayout>

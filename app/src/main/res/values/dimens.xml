@@ -15,5 +15,5 @@
     <dimen name="header_height">320dp</dimen>
     <dimen name="float_title_left_margin">44dp</dimen>
     <dimen name="float_title_size">@dimen/abc_text_size_title_material_toolbar</dimen>
-    <dimen name="float_title_size_large">36sp</dimen>
+    <dimen name="float_title_size_large">48sp</dimen>
 </resources>

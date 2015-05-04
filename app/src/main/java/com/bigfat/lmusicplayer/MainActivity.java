@@ -20,6 +20,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.fragment.AlbumFragment;
+import com.bigfat.lmusicplayer.fragment.ArtistFragment;
 import com.bigfat.lmusicplayer.fragment.AudioListFragment;
 import com.bigfat.lmusicplayer.service.AudioService;
 import com.bigfat.lmusicplayer.task.AudioUpdateTask;
@@ -99,9 +100,12 @@ public class MainActivity extends BaseActivity {
 
     private void initViewPager() {
         final List<Fragment> fragments = new ArrayList<>();
-        fragments.add(AudioListFragment.newInstance(AudioListFragment.AudioListType.All, null, null));
+        fragments.add(AudioListFragment.newInstance());
         fragments.add(AlbumFragment.newInstance());
+        fragments.add(ArtistFragment.newInstance());
         vpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private final String[] titles = new String[]{"所有", "专辑", "艺术家"};
+
             @Override
             public Fragment getItem(int position) {
                 return fragments.get(position);
@@ -114,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return new String[]{"所有", "专辑"}[position];
+                return titles[position];
             }
         });
 
@@ -142,6 +146,13 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            new AudioUpdateTask(this) {
+
+                @Override
+                protected void doInUIThread() {
+                    initViewPager();
+                }
+            }.execute();
             return true;
         }
 

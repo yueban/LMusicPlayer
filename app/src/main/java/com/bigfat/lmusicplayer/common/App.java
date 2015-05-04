@@ -41,7 +41,7 @@ public class App extends Application {
 
     private void initImageLoader() {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getContext())
-                .threadPoolSize(3) // default
+                .threadPoolSize(10) // default
                 .threadPriority(Thread.NORM_PRIORITY - 2) // default
                 .tasksProcessingOrder(QueueProcessingType.FIFO) // default
                 .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
@@ -58,12 +58,12 @@ public class App extends Application {
                 .showImageForEmptyUri(R.mipmap.ic_launcher) // resource or drawable
                 .showImageOnFail(R.mipmap.ic_launcher) // resource or drawable
                 .resetViewBeforeLoading(false)  // default
-                .delayBeforeLoading(300)
+                .delayBeforeLoading(0)
                 .cacheInMemory(true) // default
                 .cacheOnDisk(true) // default
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
                 .bitmapConfig(Bitmap.Config.ARGB_8888) // default
-                .displayer(new FadeInBitmapDisplayer(500))
+                .displayer(new FadeInBitmapDisplayer(1000))
                 .build();
     }
 }

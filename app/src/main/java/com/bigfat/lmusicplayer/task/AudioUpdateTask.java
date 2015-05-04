@@ -7,17 +7,23 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
+import com.bigfat.lmusicplayer.common.enums;
+import com.bigfat.lmusicplayer.model.Artist;
 import com.bigfat.lmusicplayer.model.Audio;
+import com.bigfat.lmusicplayer.util.AudioUtil;
 import com.bigfat.lmusicplayer.util.DBUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 更新本地音频数据
  * Created by yueban on 15/4/20.
  */
 public abstract class AudioUpdateTask extends AsyncTask<String, Integer, String> {
+    private static final String TAG = AudioUpdateTask.class.getSimpleName();
 
     private Context context;
     private ProgressDialog progressDialog;
@@ -67,8 +73,10 @@ public abstract class AudioUpdateTask extends AsyncTask<String, Integer, String>
         final ContentResolver contentResolver = context.getContentResolver();
         final Uri AUDIO_URI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         final Uri ALBUMS_URI = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
-        final Cursor cursor = contentResolver.query(AUDIO_URI, null, MediaStore.Audio.Media.DURATION + ">?", new String[]{"10000"}, null);
+        final Uri ARTISTS_URI = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
+        final Cursor cursor = contentResolver.query(AUDIO_URI, null, null, null, null);
         final List<Audio> list = new ArrayList<>();
+        final List<Artist> artists = new ArrayList<>();
 
         //更新歌曲总数
         onProgressUpdate(-1, cursor.getCount());
@@ -99,5 +107,30 @@ public abstract class AudioUpdateTask extends AsyncTask<String, Integer, String>
         //存储数据
         DBUtil.deleteAll(Audio.class);
         DBUtil.save(list);
+
+        //获取歌手信息
+        Cursor cursor_artist = contentResolver.query(ARTISTS_URI, null, null, null, null);
+        //该歌手的所有歌曲，用于遍历获取歌手封面图片
+        List<Audio> artistAudioList;
+        while (cursor_artist.moveToNext()) {
+            Artist artist = new Artist();
+            artist.set_id(cursor_artist.getString(cursor_artist.getColumnIndex(MediaStore.Audio.Artists._ID)));
+            artist.setArtist(cursor_artist.getString(cursor_artist.getColumnIndex(MediaStore.Audio.Artists.ARTIST)));
+            artist.setNumber_of_albums(cursor_artist.getString(cursor_artist.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_ALBUMS)));
+            artist.setNumber_of_tracks(cursor_artist.getString(cursor_artist.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_TRACKS)));
+            //获取该歌手所有歌曲，遍历取得一张专辑封面图作为歌手封面图片
+            artistAudioList = AudioUtil.getAudioData(enums.AudioListType.ARTIST, artist.get_id());
+            for (Audio audio : artistAudioList) {
+                if (!TextUtils.isEmpty(audio.getAlbum_art())) {
+                    artist.setAlbum_art(audio.getAlbum_art());
+                    break;
+                }
+            }
+            artists.add(artist);
+        }
+        cursor_artist.close();
+        //存储数据
+        DBUtil.delete(Artist.class);
+        DBUtil.save(artists);
     }
 }

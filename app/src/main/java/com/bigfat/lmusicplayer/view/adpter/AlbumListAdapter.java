@@ -10,11 +10,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigfat.lmusicplayer.DetailActivity;
 import com.bigfat.lmusicplayer.R;
+import com.bigfat.lmusicplayer.common.enums;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.bigfat.lmusicplayer.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,13 +29,13 @@ import java.util.List;
 /**
  * Created by yueban on 15/4/19.
  */
-public class AlbumAdapter extends BaseAdapter {
-    private static final String TAG = AlbumAdapter.class.getSimpleName();
+public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+    private static final String TAG = AlbumListAdapter.class.getSimpleName();
 
     private Context context;
     private List<Audio> data;
 
-    public AlbumAdapter(Context context, List<Audio> data) {
+    public AlbumListAdapter(Context context, List<Audio> data) {
         this.context = context;
         this.data = data;
     }
@@ -99,8 +102,8 @@ public class AlbumAdapter extends BaseAdapter {
                                             new ArgbEvaluator(),
                                             Color.WHITE,
                                             color);
-                                    backgroundColorAnimator.setStartDelay(500);
-                                    backgroundColorAnimator.setDuration(300);
+//                                    backgroundColorAnimator.setStartDelay(500);
+                                    backgroundColorAnimator.setDuration(500);
                                     backgroundColorAnimator.start();
                                 }
                             });
@@ -118,6 +121,12 @@ public class AlbumAdapter extends BaseAdapter {
         holder.title.setText(audio.getAlbum());
         holder.subTitle.setText(audio.getArtist());
         return convertView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Audio audio = getItem(position);
+        DetailActivity.actionStart(context, enums.AudioListType.ALBUM, audio.getAlbum_id(), audio);
     }
 
     private final class ViewHolder {
