@@ -17,30 +17,36 @@
 
             <include layout="@layout/include_toolbar" />
 
-            <com.astuetz.PagerSlidingTabStrip
+            <com.bigfat.lmusicplayer.view.widget.PagerSlidingTabStrip
                 android:id="@+id/psts_main"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/primary"
                 android:textColor="@color/icons"
-                app:pstsDividerColor="@android:color/transparent"
-                app:pstsIndicatorColor="@color/psts_indicator_color"
-                app:pstsIndicatorHeight="4dp"
-                app:pstsScrollOffset="120dp"
-                app:pstsUnderlineHeight="0dp" />
+                app:psts_dividerColor="@android:color/transparent"
+                app:psts_indicatorColor="@color/psts_indicator_color"
+                app:psts_indicatorHeight="4dp"
+                app:psts_scrollOffset="120dp"
+                app:psts_tabTextSelectColor="@android:color/white"
+                app:psts_underlineHeight="0dp" />
 
-            <!-- 阴影 -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/shadow_toolbar" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_main"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@android:color/white" />
+                android:layout_weight="1">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white" />
+
+                <!-- 阴影 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/shadow_toolbar" />
+            </RelativeLayout>
         </LinearLayout>
 
         <ImageView

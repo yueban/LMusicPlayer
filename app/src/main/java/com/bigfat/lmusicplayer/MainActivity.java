@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.astuetz.PagerSlidingTabStrip;
+import com.bigfat.lmusicplayer.view.widget.PagerSlidingTabStrip;
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.fragment.AlbumFragment;
@@ -123,6 +123,8 @@ public class MainActivity extends BaseActivity {
         });
 
         pstsMain.setViewPager(vpMain);
+        pstsMain.setTextColor(0x50ffffff);
+        pstsMain.setTextSelectColor(0xffffffff);
     }
 
     private void initEvent() {

@@ -10,6 +10,10 @@ public class ResUtil {
     }
 
     public static String getString(int resId) {
-        return App.getContext().getString(resId);
+        return App.getContext().getResources().getString(resId);
+    }
+
+    public static int getColor(int id) {
+        return App.getContext().getResources().getColor(id);
     }
 }

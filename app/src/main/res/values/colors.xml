@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="psts_indicator_color">@color/icons</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
 
     <color name="primary">#2196F3</color>
     <color name="primary_dark">#1976D2</color>
@@ -12,4 +13,5 @@
     <color name="divider">#B6B6B6</color>
 
     <color name="gray">#e7e7e7</color>
+    <color name="white_50">#50FFFFFF</color>
 </resources>

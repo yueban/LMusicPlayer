@@ -2,10 +2,8 @@ package com.bigfat.lmusicplayer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +20,7 @@ import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.enums;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.bigfat.lmusicplayer.util.AudioUtil;
+import com.bigfat.lmusicplayer.util.ResUtil;
 import com.bigfat.lmusicplayer.view.adpter.AudioListAdapter;
 
 import java.util.List;
@@ -51,7 +50,6 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
     private enums.AudioListType type;//音频列表类型
     private String key;//显示界面关键字
     private Audio audio;//当前界面父级信息
-    private BitmapDrawable imageBg;//当前界面背景图
     private String title = "";
 
     /**
@@ -95,16 +93,6 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
                 break;
         }
 
-        //背景图
-        String img_url = audio.getAlbum_art();
-        Bitmap bitmapBg;
-        if (!TextUtils.isEmpty(img_url)) {
-            bitmapBg = BitmapFactory.decodeFile(img_url);
-        } else {
-            bitmapBg = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        }
-        imageBg = new BitmapDrawable(getResources(), bitmapBg);
-
         initMeasure();
         initView();
         initListView();
@@ -131,7 +119,14 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
         View headerContainer = LayoutInflater.from(this).inflate(R.layout.include_header, lvAudio, false);
         headerBg = (ImageView) headerContainer.findViewById(R.id.img_header_bg);
         headerBgCover = (ImageView) headerContainer.findViewById(R.id.img_header_bg_cover);
-        headerBg.setImageDrawable(imageBg);
+
+        //背景图
+        String img_url = audio.getAlbum_art();
+        if (!TextUtils.isEmpty(img_url)) {
+            headerBg.setImageURI(Uri.parse(img_url));
+        } else {
+            headerBg.setImageResource(R.mipmap.ic_launcher);
+        }
 
         lvAudio.addHeaderView(headerContainer, null, false);
 
@@ -198,7 +193,7 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
         //判断标题文字的显示
         if (scrollY > headerBarOffsetY) {
             tbTop.setTitle(title);
-            tbTop.setBackgroundDrawable(imageBg);
+            tbTop.setBackgroundColor(ResUtil.getColor(R.color.primary));
             floatTitle.setVisibility(View.GONE);
         } else {
             tbTop.setTitle("");

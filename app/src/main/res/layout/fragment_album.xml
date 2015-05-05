@@ -8,8 +8,5 @@
         android:id="@+id/gv_frag_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
-        android:horizontalSpacing="@dimen/margin_small"
-        android:numColumns="2"
-        android:verticalSpacing="@dimen/margin_small" />
+        android:numColumns="2" />
 </LinearLayout>

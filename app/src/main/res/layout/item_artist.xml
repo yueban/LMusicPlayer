@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/img_item_artist_cover"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        android:scaleType="centerCrop"
+        app:riv_border_color="#333333"
+        app:riv_border_width="0dp"
+        app:riv_corner_radius="50dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="repeat"
+        tools:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="match_parent"

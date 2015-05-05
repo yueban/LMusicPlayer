@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -65,6 +66,7 @@ public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemC
             holder.textBg = convertView.findViewById(R.id.ll_item_album_text_bg);
             holder.title = (TextView) convertView.findViewById(R.id.tv_item_album_title);
             holder.subTitle = (TextView) convertView.findViewById(R.id.tv_item_album_subtitle);
+            holder.textBgColor = Color.WHITE;
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -100,11 +102,13 @@ public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemC
                                     final ObjectAnimator backgroundColorAnimator = ObjectAnimator.ofObject(holder.textBg,
                                             "backgroundColor",
                                             new ArgbEvaluator(),
-                                            Color.WHITE,
+                                            holder.textBgColor,
                                             color);
 //                                    backgroundColorAnimator.setStartDelay(500);
-                                    backgroundColorAnimator.setDuration(500);
+                                    backgroundColorAnimator.setDuration(800);
+                                    backgroundColorAnimator.setInterpolator(new DecelerateInterpolator());
                                     backgroundColorAnimator.start();
+                                    holder.textBgColor = color;
                                 }
                             });
                         }
@@ -134,5 +138,6 @@ public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemC
         View textBg;
         TextView title;
         TextView subTitle;
+        int textBgColor;
     }
 }
