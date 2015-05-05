@@ -202,6 +202,9 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
         }
     }
 
+    /**
+     * 获取listView滑动Y轴偏移
+     */
     public float getScrollY(AbsListView view) {
         View c = view.getChildAt(0);
 

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
+    <ImageView
+        android:id="@+id/img_item_setting"
+        android:layout_width="@dimen/element_touch_width"
+        android:layout_height="@dimen/element_touch_width"
+        android:padding="@dimen/padding_small"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_item_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_title_material_toolbar"
+        tools:text="@string/app_name" />
 </LinearLayout>

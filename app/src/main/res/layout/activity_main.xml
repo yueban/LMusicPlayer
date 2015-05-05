@@ -20,15 +20,14 @@
             <com.bigfat.lmusicplayer.view.widget.PagerSlidingTabStrip
                 android:id="@+id/psts_main"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/psts_height"
                 android:background="@color/primary"
                 android:textColor="@color/icons"
                 app:psts_dividerColor="@android:color/transparent"
                 app:psts_indicatorColor="@color/psts_indicator_color"
-                app:psts_indicatorHeight="4dp"
-                app:psts_scrollOffset="120dp"
+                app:psts_indicatorHeight="@dimen/psts_indicator_height"
                 app:psts_tabTextSelectColor="@android:color/white"
-                app:psts_underlineHeight="0dp" />
+                app:psts_underlineHeight="@dimen/psts_underline_height" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

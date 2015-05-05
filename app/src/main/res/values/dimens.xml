@@ -12,8 +12,17 @@
     <dimen name="element_touch_width_small">32dp</dimen>
     <dimen name="element_touch_width">48dp</dimen>
 
+    <!-- 音频列表顶部Header -->
     <dimen name="header_height">320dp</dimen>
     <dimen name="float_title_left_margin">44dp</dimen>
     <dimen name="float_title_size">@dimen/abc_text_size_title_material_toolbar</dimen>
     <dimen name="float_title_size_large">48sp</dimen>
+
+    <!-- 设置 -->
+    <dimen name="setting_height">56dp</dimen>
+
+    <!-- PagerSlidingTabStrip -->
+    <dimen name="psts_height">48dp</dimen>
+    <dimen name="psts_indicator_height">2dp</dimen>
+    <dimen name="psts_underline_height">0dp</dimen>
 </resources>
