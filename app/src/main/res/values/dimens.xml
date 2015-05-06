@@ -18,8 +18,11 @@
     <dimen name="float_title_size">@dimen/abc_text_size_title_material_toolbar</dimen>
     <dimen name="float_title_size_large">48sp</dimen>
 
+    <!-- 抽屉 -->
+    <dimen name="drawer_width">280dp</dimen>
+
     <!-- 设置 -->
-    <dimen name="setting_height">56dp</dimen>
+    <dimen name="setting_item_height">56dp</dimen>
 
     <!-- PagerSlidingTabStrip -->
     <dimen name="psts_height">48dp</dimen>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_play_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginEnd="56dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginRight="56dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="@dimen/margin_medium">
+
+        <ImageView
+            android:id="@+id/img_play_play"
+            android:layout_width="@dimen/element_touch_width"
+            android:layout_height="@dimen/element_touch_width"
+            android:layout_centerInParent="true"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/img_play_previous"
+            android:layout_width="@dimen/element_touch_width"
+            android:layout_height="@dimen/element_touch_width"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/img_play_play"
+            android:layout_toStartOf="@id/img_play_play"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/img_play_repeat"
+            android:layout_width="@dimen/element_touch_width"
+            android:layout_height="@dimen/element_touch_width"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/img_play_previous"
+            android:layout_toStartOf="@id/img_play_previous"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/img_play_next"
+            android:layout_width="@dimen/element_touch_width"
+            android:layout_height="@dimen/element_touch_width"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_play_play"
+            android:layout_toRightOf="@id/img_play_play"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/img_play_random"
+            android:layout_width="@dimen/element_touch_width"
+            android:layout_height="@dimen/element_touch_width"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_play_next"
+            android:layout_toRightOf="@id/img_play_next"
+            tools:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_play_text"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_above="@id/rl_play_bottom_bar"
+        android:orientation="vertical"
+        android:paddingLeft="72dp"
+        android:paddingStart="72dp">
+
+        <TextView
+            android:id="@+id/tv_play_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:singleLine="true"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/abc_text_size_title_material_toolbar"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tv_play_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/padding_small"
+            android:singleLine="true"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
+            tools:text="Title" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_play_text"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/ic_launcher" />
+</RelativeLayout>
