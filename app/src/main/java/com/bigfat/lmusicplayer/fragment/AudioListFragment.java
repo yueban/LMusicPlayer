@@ -59,7 +59,7 @@ public class AudioListFragment extends BaseFragment {
         lvAudio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.binder.playAudio(adapter.getItem(position).getData());
+                MainActivity.binder.playAudio(data, position);
             }
         });
     }

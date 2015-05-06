@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bigfat.lmusicplayer.view.widget.PagerSlidingTabStrip;
 import com.bigfat.lmusicplayer.common.BaseActivity;
 import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.fragment.AlbumFragment;
@@ -26,6 +25,7 @@ import com.bigfat.lmusicplayer.service.AudioService;
 import com.bigfat.lmusicplayer.task.AudioUpdateTask;
 import com.bigfat.lmusicplayer.util.SPUtil;
 import com.bigfat.lmusicplayer.util.ToastUtil;
+import com.bigfat.lmusicplayer.view.widget.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,19 +145,24 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_playing:
+                startActivity(new Intent(this, PlayActivity.class));
+                break;
 
-        if (id == R.id.action_settings) {
-            new AudioUpdateTask(this) {
+            case R.id.action_refresh:
+                new AudioUpdateTask(this) {
+                    @Override
+                    protected void doInUIThread() {
+                        initViewPager();
+                    }
+                }.execute();
+                break;
 
-                @Override
-                protected void doInUIThread() {
-                    initViewPager();
-                }
-            }.execute();
-            return true;
+            case R.id.action_settings:
+
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

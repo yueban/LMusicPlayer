@@ -14,4 +14,21 @@ public class enums {
         PLAYLIST,//播放列表
         SEARCH,//搜索
     }
+
+    /**
+     * 重复播放模式
+     */
+    public enum RepeatMode {
+        REPEAT_TRACK,//单曲循环
+        REPEAT_LIST,//列表循环
+        OFF,//关闭循环,即顺序播放
+    }
+
+    /**
+     * 随机播放模式
+     */
+    public enum RandomMode {
+        ON,//开启
+        OFF,//关闭
+    }
 }
