@@ -4,13 +4,15 @@ package com.bigfat.lmusicplayer.common;
  * Created by yueban on 15/4/12.
  */
 public class Const {
+    public static final String PACKAGE_NAME = App.getContext().getPackageName();
+
     //SharedPreference配置
-    public static final String SP_IS_FIRST_START = "is_first_start";
+    public static final String SP_IS_FIRST_START = PACKAGE_NAME+"is_first_start";
 
     //广播
-    public static final String ACTION_AUDIO = "action_audio";//对应AudioReceiver
-    public static final String EXTRA_COMMAND = "extra_command";//附加命令
-    public static final String EXTRA_AUDIO_URL = "extra_audio_url";//附加音频播放url
+    public static final String ACTION_AUDIO = PACKAGE_NAME + "action_audio";//对应AudioReceiver
+    public static final String EXTRA_COMMAND = PACKAGE_NAME + "extra_command";//附加命令
+    public static final String EXTRA_AUDIO_URL = PACKAGE_NAME + "extra_audio_url";//附加音频播放url
 
     public static final int COMMAND_AUDIO_PLAY = 1001;//播放
     public static final int COMMAND_AUDIO_PAUSE = 1002;//暂停
