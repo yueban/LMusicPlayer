@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.bigfat.lmusicplayer.common.Const;
 import com.bigfat.lmusicplayer.common.enums;
 import com.bigfat.lmusicplayer.model.Audio;
-import com.bigfat.lmusicplayer.util.ToastUtil;
+import com.bigfat.lmusicplayer.util.BroadCastUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,21 +57,14 @@ public class AudioService extends Service {
         boolean isPlayContinue = true;//是否继续播放
 
         switch (randomMode) {
-            case ON://随机播放开启
-                switch (repeatMode) {
-                    case REPEAT_TRACK://单曲循环
-                        break;
-
-                    case REPEAT_LIST://列表循环
-                    case OFF://顺序播放
-                        position = new Random().nextInt(audioList.size() - 1);
-                        break;
-                }
-                break;
-
             case OFF://随机播放关闭
                 switch (repeatMode) {
-                    case REPEAT_TRACK://单曲循环
+                    case OFF://顺序播放
+                        if (position == audioList.size() - 1) {
+                            isPlayContinue = false;
+                        } else {
+                            position++;
+                        }
                         break;
 
                     case REPEAT_LIST://列表循环
@@ -84,15 +75,23 @@ public class AudioService extends Service {
                         }
                         break;
 
-                    case OFF://顺序播放
-                        if (position == audioList.size() - 1) {
-                            isPlayContinue = false;
-                        } else {
-                            position++;
-                        }
+                    case REPEAT_TRACK://单曲循环
                         break;
                 }
                 break;
+
+            case ON://随机播放开启
+                switch (repeatMode) {
+                    case OFF://顺序播放
+                    case REPEAT_LIST://列表循环
+                        position = new Random().nextInt(audioList.size() - 1);
+                        break;
+
+                    case REPEAT_TRACK://单曲循环
+                        break;
+                }
+                break;
+
         }
         //判断是否继续播放
         if (isPlayContinue) {
@@ -110,12 +109,12 @@ public class AudioService extends Service {
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepare();
             mediaPlayer.start();
+            isPlaying = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Intent intent = new Intent(Const.ACTION_AUDIO);
-        intent.putExtra(Const.EXTRA_COMMAND, Const.COMMAND_AUDIO_PLAY);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        //发送广播
+        BroadCastUtil.sendAudioBroadCast(this, Const.COMMAND_AUDIO_PLAY);
     }
 
     /**
@@ -137,9 +136,13 @@ public class AudioService extends Service {
         if (isPlaying) {
             mediaPlayer.pause();
             isPlaying = false;
+            //发送广播
+            BroadCastUtil.sendAudioBroadCast(this, Const.COMMAND_AUDIO_PAUSE);
         } else {
             mediaPlayer.start();
             isPlaying = true;
+            //发送广播
+            BroadCastUtil.sendAudioBroadCast(this, Const.COMMAND_AUDIO_START);
         }
     }
 
@@ -148,27 +151,27 @@ public class AudioService extends Service {
      */
     private void previous() {
         switch (randomMode) {
-            case ON://随机播放开启
-                position = new Random().nextInt(audioList.size() - 1);
-                break;
-
             case OFF://随机播放关闭
                 switch (repeatMode) {
-                    case REPEAT_TRACK://单曲循环
+                    case OFF://顺序播放
+                        if (position != 0) {
+                            position--;
+                        }
+                        break;
+
                     case REPEAT_LIST://列表循环
+                    case REPEAT_TRACK://单曲循环
                         if (position == 0) {
                             position = audioList.size() - 1;
                         } else {
                             position--;
                         }
                         break;
-
-                    case OFF://顺序播放
-                        if (position != 0) {
-                            position--;
-                        }
-                        break;
                 }
+                break;
+
+            case ON://随机播放开启
+                position = new Random().nextInt(audioList.size() - 1);
                 break;
         }
         play();
@@ -179,27 +182,27 @@ public class AudioService extends Service {
      */
     private void next() {
         switch (randomMode) {
-            case ON://随机播放开启
-                position = new Random().nextInt(audioList.size() - 1);
-                break;
-
             case OFF://随机播放关闭
                 switch (repeatMode) {
-                    case REPEAT_TRACK://单曲循环
+                    case OFF://顺序播放
+                        if (position != audioList.size() - 1) {
+                            position++;
+                        }
+                        break;
+
                     case REPEAT_LIST://列表循环
+                    case REPEAT_TRACK://单曲循环
                         if (position == audioList.size() - 1) {
                             position = 0;
                         } else {
                             position++;
                         }
                         break;
-
-                    case OFF://顺序播放
-                        if (position != audioList.size() - 1) {
-                            position++;
-                        }
-                        break;
                 }
+                break;
+
+            case ON://随机播放开启
+                position = new Random().nextInt(audioList.size() - 1);
                 break;
         }
         play();
@@ -222,8 +225,9 @@ public class AudioService extends Service {
                 break;
             }
         }
-        Log.i(TAG, "repeatMode--->" + repeatMode);
-        ToastUtil.show("界面显示逻辑还没做");
+//        Log.i(TAG, "repeatMode--->" + repeatMode);
+        //发送广播
+        BroadCastUtil.sendAudioBroadCast(this, Const.COMMAND_AUDIO_REPEAT);
     }
 
     /**
@@ -243,8 +247,8 @@ public class AudioService extends Service {
                 break;
             }
         }
-        Log.i(TAG, "randomMode--->" + randomMode);
-        ToastUtil.show("这个还没做");
+//        Log.i(TAG, "randomMode--->" + randomMode);
+        BroadCastUtil.sendAudioBroadCast(this, Const.COMMAND_AUDIO_RANDOM);
     }
 
     /**
@@ -277,6 +281,14 @@ public class AudioService extends Service {
 
         public void random() {
             AudioService.this.random();
+        }
+
+        public enums.RepeatMode getRepeatMode() {
+            return AudioService.this.repeatMode;
+        }
+
+        public enums.RandomMode getRandomMode() {
+            return AudioService.this.randomMode;
         }
 
         /**

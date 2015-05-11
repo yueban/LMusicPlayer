@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bigfat.lmusicplayer.DetailActivity;
 import com.bigfat.lmusicplayer.R;
+import com.bigfat.lmusicplayer.common.App;
 import com.bigfat.lmusicplayer.common.enums;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.bigfat.lmusicplayer.util.Utils;
@@ -77,7 +78,7 @@ public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemC
         if (!TextUtils.isEmpty(img_url)) {
             img_url = "file://" + img_url;
         }
-        ImageLoader.getInstance().displayImage(img_url, holder.cover, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(img_url, holder.cover, App.getAlbumDisplayImageOptions(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
 
@@ -121,7 +122,7 @@ public class AlbumListAdapter extends BaseAdapter implements AdapterView.OnItemC
 
             }
         });
-        holder.textBg.setBackgroundColor(Color.WHITE);
+//        holder.textBg.setBackgroundColor(Color.WHITE);
         holder.title.setText(audio.getAlbum());
         holder.subTitle.setText(audio.getArtist());
         return convertView;

@@ -24,6 +24,5 @@
         <activity android:name=".PlayActivity" />
 
         <service android:name=".service.AudioService" />
-        <receiver android:name=".receiver.AudioReceiver" />
     </application>
 </manifest>

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
@@ -42,10 +43,15 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
             switch (intent.getIntExtra(Const.EXTRA_COMMAND, -1)) {
                 case Const.COMMAND_AUDIO_PLAY:
                     initData();
+                    imgPlay.setImageResource(R.mipmap.ic_pause_circle_fill_grey600_48dp);
+                    break;
+
+                case Const.COMMAND_AUDIO_START:
+                    imgPlay.setImageResource(R.mipmap.ic_pause_circle_fill_grey600_48dp);
                     break;
 
                 case Const.COMMAND_AUDIO_PAUSE:
-
+                    imgPlay.setImageResource(R.mipmap.ic_play_circle_fill_grey600_48dp);
                     break;
 
                 case Const.COMMAND_AUDIO_PREVIOUS:
@@ -57,11 +63,11 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
                     break;
 
                 case Const.COMMAND_AUDIO_REPEAT:
-
+                    setRepeatImage();
                     break;
 
                 case Const.COMMAND_AUDIO_RANDOM:
-
+                    setRandomImage();
                     break;
             }
         }
@@ -111,6 +117,9 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
             tvTitle.setText(audio.getTitle());
             tvArtist.setText(audio.getArtist());
         }
+        setPlayImage();
+        setRepeatImage();
+        setRandomImage();
     }
 
     @Override
@@ -134,6 +143,54 @@ public class PlayActivity extends BaseActivity implements View.OnClickListener {
 
             case R.id.img_play_random:
                 MainActivity.binder.random();
+                break;
+        }
+    }
+
+    /**
+     * 设置播放按钮图片
+     */
+    private void setPlayImage() {
+        if (MainActivity.binder.isPlaying()) {
+            imgPlay.setImageResource(R.mipmap.ic_pause_circle_fill_grey600_48dp);
+        } else {
+            imgPlay.setImageResource(R.mipmap.ic_play_circle_fill_grey600_48dp);
+        }
+    }
+
+    /**
+     * 设置随机播放图片
+     */
+    private void setRandomImage() {
+        switch (MainActivity.binder.getRandomMode()) {
+            case OFF:
+                imgRandom.setColorFilter(null);
+                break;
+
+            case ON:
+                imgRandom.setColorFilter(Color.BLACK);
+                break;
+        }
+    }
+
+    /**
+     * 设置重复播放图片
+     */
+    private void setRepeatImage() {
+        switch (MainActivity.binder.getRepeatMode()) {
+            case OFF:
+                imgRepeat.setImageResource(R.mipmap.ic_repeat_grey600_48dp);
+                imgRepeat.setColorFilter(null);
+                break;
+
+            case REPEAT_TRACK:
+                imgRepeat.setImageResource(R.mipmap.ic_repeat_one_grey600_48dp);
+                imgRepeat.setColorFilter(Color.BLACK);
+                break;
+
+            case REPEAT_LIST:
+                imgRepeat.setImageResource(R.mipmap.ic_repeat_grey600_48dp);
+                imgRepeat.setColorFilter(Color.BLACK);
                 break;
         }
     }

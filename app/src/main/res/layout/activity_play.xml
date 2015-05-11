@@ -22,7 +22,7 @@
             android:layout_width="@dimen/element_touch_width"
             android:layout_height="@dimen/element_touch_width"
             android:layout_centerInParent="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_play_circle_fill_grey600_48dp" />
 
         <ImageView
             android:id="@+id/img_play_previous"
@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/img_play_play"
             android:layout_toStartOf="@id/img_play_play"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_skip_previous_grey600_48dp" />
 
         <ImageView
             android:id="@+id/img_play_repeat"
@@ -40,7 +40,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/img_play_previous"
             android:layout_toStartOf="@id/img_play_previous"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_repeat_grey600_48dp" />
 
         <ImageView
             android:id="@+id/img_play_next"
@@ -49,7 +49,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/img_play_play"
             android:layout_toRightOf="@id/img_play_play"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_skip_next_grey600_48dp" />
 
         <ImageView
             android:id="@+id/img_play_random"
@@ -58,7 +58,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/img_play_next"
             android:layout_toRightOf="@id/img_play_next"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_shuffle_grey600_48dp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -92,7 +92,6 @@
             android:textColor="@color/primary_text"
             android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"
             tools:text="Title" />
-
     </LinearLayout>
 
     <ImageView
@@ -102,5 +101,5 @@
         android:layout_above="@id/rl_play_text"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@mipmap/ic_album_grey600_48dp" />
 </RelativeLayout>

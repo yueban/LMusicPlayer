@@ -125,7 +125,7 @@ public class DetailActivity extends BaseActivity implements AbsListView.OnScroll
         if (!TextUtils.isEmpty(img_url)) {
             headerBg.setImageURI(Uri.parse(img_url));
         } else {
-            headerBg.setImageResource(R.mipmap.ic_launcher);
+            headerBg.setImageResource(R.mipmap.ic_album_grey600_48dp);
         }
 
         lvAudio.addHeaderView(headerContainer, null, false);

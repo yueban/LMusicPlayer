@@ -19,6 +19,9 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 public class App extends Application {
     private static App app;
     private static Context context;
+    private static DisplayImageOptions defaultDisplayImageOptions;//默认图片加载配置
+    private static DisplayImageOptions albumDisplayImageOptions;//专辑图片加载配置
+    private static DisplayImageOptions artistDisplayImageOptions;//艺术家图片加载配置
 
     public static Application getInstance() {
         if (app == null) {
@@ -29,6 +32,67 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    /**
+     * 默认图片加载配置
+     */
+    public static DisplayImageOptions getDefaultDisplayImageOptions() {
+        if (defaultDisplayImageOptions == null) {
+            defaultDisplayImageOptions = new DisplayImageOptions.Builder()
+                    .resetViewBeforeLoading(false)  // default
+                    .delayBeforeLoading(0)
+                    .cacheInMemory(true) // default
+                    .cacheOnDisk(true) // default
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                    .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                    .displayer(new FadeInBitmapDisplayer(1000))
+                    .build();
+        }
+        return defaultDisplayImageOptions;
+    }
+
+    /**
+     * 专辑图片加载配置
+     */
+    public static DisplayImageOptions getAlbumDisplayImageOptions() {
+        if (albumDisplayImageOptions == null) {
+
+            albumDisplayImageOptions = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.mipmap.ic_album_grey600_48dp)
+                    .showImageForEmptyUri(R.mipmap.ic_album_grey600_48dp)
+                    .showImageOnFail(R.mipmap.ic_album_grey600_48dp)
+                    .resetViewBeforeLoading(false)  // default
+                    .delayBeforeLoading(0)
+                    .cacheInMemory(true) // default
+                    .cacheOnDisk(true) // default
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                    .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                    .displayer(new FadeInBitmapDisplayer(1000))
+                    .build();
+        }
+        return albumDisplayImageOptions;
+    }
+
+    /**
+     * 艺术家图片加载配置
+     */
+    public static DisplayImageOptions getArtistDisplayImageOptions() {
+        if (artistDisplayImageOptions == null) {
+            artistDisplayImageOptions = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.mipmap.ic_account_circle_grey600_48dp)
+                    .showImageForEmptyUri(R.mipmap.ic_account_circle_grey600_48dp)
+                    .showImageOnFail(R.mipmap.ic_account_circle_grey600_48dp)
+                    .resetViewBeforeLoading(false)  // default
+                    .delayBeforeLoading(0)
+                    .cacheInMemory(true) // default
+                    .cacheOnDisk(true) // default
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                    .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                    .displayer(new FadeInBitmapDisplayer(1000))
+                    .build();
+        }
+        return artistDisplayImageOptions;
     }
 
     @Override
@@ -50,20 +114,5 @@ public class App extends Application {
                 .defaultDisplayImageOptions(getDefaultDisplayImageOptions()) // default
                 .build();
         ImageLoader.getInstance().init(config);
-    }
-
-    private DisplayImageOptions getDefaultDisplayImageOptions() {
-        return new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_launcher) // resource or drawable
-                .showImageForEmptyUri(R.mipmap.ic_launcher) // resource or drawable
-                .showImageOnFail(R.mipmap.ic_launcher) // resource or drawable
-                .resetViewBeforeLoading(false)  // default
-                .delayBeforeLoading(0)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
-                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
-                .displayer(new FadeInBitmapDisplayer(1000))
-                .build();
     }
 }

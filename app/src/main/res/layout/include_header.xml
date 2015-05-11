@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@mipmap/ic_album_grey600_48dp" />
 
     <ImageView
         android:id="@+id/img_header_bg_cover"

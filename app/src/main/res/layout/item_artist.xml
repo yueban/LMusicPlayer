@@ -19,7 +19,7 @@
         app:riv_mutate_background="true"
         app:riv_oval="true"
         app:riv_tile_mode="repeat"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@mipmap/ic_account_circle_grey600_48dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

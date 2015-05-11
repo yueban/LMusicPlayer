@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bigfat.lmusicplayer.DetailActivity;
 import com.bigfat.lmusicplayer.R;
+import com.bigfat.lmusicplayer.common.App;
 import com.bigfat.lmusicplayer.common.enums;
 import com.bigfat.lmusicplayer.model.Artist;
 import com.bigfat.lmusicplayer.model.Audio;
@@ -67,7 +68,7 @@ public class ArtistListAdapter extends BaseAdapter implements AdapterView.OnItem
         if (!TextUtils.isEmpty(img_url)) {
             img_url = "file://" + img_url;
         }
-        ImageLoader.getInstance().displayImage(img_url, holder.cover);
+        ImageLoader.getInstance().displayImage(img_url, holder.cover, App.getArtistDisplayImageOptions());
         holder.title.setText(artist.getArtist());
         holder.subTitle.setText(artist.getNumber_of_tracks() + "首");
         return convertView;

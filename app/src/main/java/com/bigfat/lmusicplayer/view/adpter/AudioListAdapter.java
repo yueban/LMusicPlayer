@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigfat.lmusicplayer.R;
+import com.bigfat.lmusicplayer.common.App;
 import com.bigfat.lmusicplayer.model.Audio;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -63,7 +64,7 @@ public class AudioListAdapter extends BaseAdapter {
         if (!TextUtils.isEmpty(img_url)) {
             img_url = "file://" + img_url;
         }
-        ImageLoader.getInstance().displayImage(img_url, holder.cover);
+        ImageLoader.getInstance().displayImage(img_url, holder.cover, App.getAlbumDisplayImageOptions());
         holder.title.setText(audio.getTitle());
         holder.subTitle.setText(audio.getArtist());
         return convertView;
